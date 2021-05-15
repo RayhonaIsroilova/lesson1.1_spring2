@@ -39,7 +39,7 @@ public class DepartmentService {
             return new ApiResponse("There are this name", false);
         Department department = new Department();
         department.setName(department.getName());
-        department.setCompany(companyRepository.getOne(dto.getCompanyId()));
+        department.setCompany(new Company(dto.getCompanyId()));
         repository.save(department);
         return new ApiResponse("Saved successfully", true);
     }
@@ -52,7 +52,7 @@ public class DepartmentService {
         if (!byId.isPresent()) return new ApiResponse("Id not found", false);
         Department department = byId.get();
         department.setName(department.getName());
-        department.setCompany(companyRepository.getOne(dto.getCompanyId()));
+        department.setCompany(new Company(dto.getCompanyId()));
         repository.save(department);
         return new ApiResponse("Edited successfully", true);
     }

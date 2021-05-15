@@ -23,4 +23,8 @@ public class Company {
 
     @OneToOne
     private Address address;
+
+    public Company(Integer id) {
+        this.id = id;
+    }
 }

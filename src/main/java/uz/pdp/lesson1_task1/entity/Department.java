@@ -20,4 +20,8 @@ public class Department {
 
     @ManyToOne
    private Company company;
+
+    public Department(Integer id) {
+        this.id = id;
+    }
 }

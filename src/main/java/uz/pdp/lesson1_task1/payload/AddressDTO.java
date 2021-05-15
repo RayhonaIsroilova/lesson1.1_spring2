@@ -16,4 +16,6 @@ public class AddressDTO {
 
     @NotNull(message = "homeNumber bo'sh bo'lmasligi kere")
     private String homeNumber;
+
+
 }

@@ -21,4 +21,8 @@ public class Address {
 
     @Column(nullable = false)
     private String homeNumber;
+
+    public Address(Integer id) {
+        this.id = id;
+    }
 }

@@ -3,6 +3,7 @@ package uz.pdp.lesson1_task1.service;
 import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uz.pdp.lesson1_task1.entity.Address;
 import uz.pdp.lesson1_task1.entity.Department;
 import uz.pdp.lesson1_task1.entity.Worker;
 import uz.pdp.lesson1_task1.payload.ApiResponse;
@@ -44,8 +45,8 @@ public class WorkerService {
         Worker worker = new Worker();
         worker.setName(dto.getName());
         worker.setPhoneNumber(dto.getPhoneNumber());
-        worker.setAddress(addressRepository.getOne(dto.getAddressId()));
-        worker.setDepartment(departmentRepository.getOne(dto.getDepartmentId()));
+        worker.setAddress(new Address(dto.getAddressId()));
+        worker.setDepartment(new Department(dto.getDepartmentId()));
         repository.save(worker);
         return new ApiResponse("Saved successfully", true);
     }
@@ -59,8 +60,8 @@ public class WorkerService {
         Worker worker = byId.get();
         worker.setName(dto.getName());
         worker.setPhoneNumber(dto.getPhoneNumber());
-        worker.setAddress(addressRepository.getOne(dto.getAddressId()));
-        worker.setDepartment(departmentRepository.getOne(dto.getDepartmentId()));
+        worker.setAddress(new Address(dto.getAddressId()));
+        worker.setDepartment(new Department(dto.getDepartmentId()));
         repository.save(worker);
         return new ApiResponse("Edited successfully", true);
     }
