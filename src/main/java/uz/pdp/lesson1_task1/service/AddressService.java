@@ -40,7 +40,7 @@ public class AddressService {
      * @return ApiResponse
      */
     public ApiResponse add(AddressDTO addressDTO){
-        if (addressRepository.existsByHomeNumber(addressDTO.getHomeNumber()))
+        if (addressRepository.existsByStreetAndHomeNumber(addressDTO.getStreet(),addressDTO.getHomeNumber()))
             return new ApiResponse("There are this home number",false);
         Address address = new Address();
         address.setStreet(addressDTO.getStreet());
@@ -58,6 +58,8 @@ public class AddressService {
     public ApiResponse edit(Integer id,AddressDTO addressDTO){
         if (addressRepository.existsByHomeNumberAndIdNot(addressDTO.getHomeNumber(),id))
             return new ApiResponse("There are this address",false);
+        if (addressRepository.existsByStreetAndHomeNumber(addressDTO.getStreet(),addressDTO.getHomeNumber()))
+            return new ApiResponse("There are this home number",false);
         Optional<Address> byId = addressRepository.findById(id);
         if (!byId.isPresent()) return new ApiResponse("This address not found",false);
         Address address = byId.get();

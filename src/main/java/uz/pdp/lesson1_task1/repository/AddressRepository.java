@@ -6,6 +6,6 @@ import uz.pdp.lesson1_task1.entity.Address;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address,Integer> {
-    boolean existsByHomeNumber(String homeNumber);
+    boolean existsByStreetAndHomeNumber(String street, String homeNumber);
     boolean existsByHomeNumberAndIdNot(String homeNumber, Integer id);
 }
