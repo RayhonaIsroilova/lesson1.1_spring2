@@ -45,8 +45,8 @@ public class WorkerService {
         Worker worker = new Worker();
         worker.setName(dto.getName());
         worker.setPhoneNumber(dto.getPhoneNumber());
-        worker.setAddress(new Address(dto.getAddressId()));
-        worker.setDepartment(new Department(dto.getDepartmentId()));
+        worker.getAddress().setId(dto.getAddressId());
+        worker.getDepartment().setId(dto.getDepartmentId());
         repository.save(worker);
         return new ApiResponse("Saved successfully", true);
     }
@@ -60,8 +60,8 @@ public class WorkerService {
         Worker worker = byId.get();
         worker.setName(dto.getName());
         worker.setPhoneNumber(dto.getPhoneNumber());
-        worker.setAddress(new Address(dto.getAddressId()));
-        worker.setDepartment(new Department(dto.getDepartmentId()));
+        worker.getAddress().setId(dto.getAddressId());
+        worker.getDepartment().setId(dto.getDepartmentId());
         repository.save(worker);
         return new ApiResponse("Edited successfully", true);
     }
@@ -70,7 +70,8 @@ public class WorkerService {
     public ApiResponse delete(Integer id) {
         Optional<Worker> byId = repository.findById(id);
         if (!byId.isPresent()) return new ApiResponse("This id not found", false);
-        repository.delete(byId.get());
+        addressRepository.deleteById(byId.get().getAddress().getId());
+        repository.deleteById(id);
         return new ApiResponse("Delete successfully", true);
     }
 }

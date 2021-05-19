@@ -41,7 +41,7 @@ public class CompanyService {
         if (repository.existsById(companyDTO.getAddressId())) return new  ApiResponse("This id exist",false);
         company.setCorpName(companyDTO.getCorpName());
         company.setDirectorName(companyDTO.getDirectorName());
-        company.setAddress(new Address(companyDTO.getAddressId()));
+        company.getAddress().setId(companyDTO.getAddressId());
         repository.save(company);
         return new ApiResponse("Saved successfully",true);
     }
@@ -55,7 +55,7 @@ public class CompanyService {
         Company company = byId.get();
         company.setCorpName(companyDTO.getCorpName());
         company.setDirectorName(companyDTO.getDirectorName());
-        company.setAddress(new Address(companyDTO.getAddressId()));
+        company.getAddress().setId(companyDTO.getAddressId());
         repository.save(company);
         return new ApiResponse("Edited successfully",true);
     }
@@ -64,6 +64,7 @@ public class CompanyService {
     public ApiResponse delete(Integer id){
         Optional<Company> byId = repository.findById(id);
         if (!byId.isPresent()) return new ApiResponse("This id not found",false);
+        addressRepository.deleteById(byId.get().getAddress().getId());
         repository.deleteById(id);
         return new ApiResponse("Delete successfully",true);
     }
